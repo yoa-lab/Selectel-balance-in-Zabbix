@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2024-06-13T13:05:56Z</date>
+    <groups>
+        <group>
+            <name>Zabbix servers</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Selectel API</template>
+            <name>Selectel API</name>
+            <groups>
+                <group>
+                    <name>Zabbix servers</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Selectel API</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Billing Selectel</name>
+                    <key>billings.balances_values_sum</key>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Selectel API</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}&lt;1500</expression>
+                            <name>Balance on Selectel too low  - {ITEM.VALUE} RUB</name>
+                            <priority>WARNING</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Billing Selectel</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>199C0D</color>
+                    <item>
+                        <host>Selectel API</host>
+                        <key>billings.balances_values_sum</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
